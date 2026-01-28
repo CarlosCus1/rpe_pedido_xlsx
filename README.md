@@ -45,6 +45,10 @@ Sistema de macros VBA para Excel diseñado para automatizar la generación de do
 3. Ejecutar `GenerarXLSXCarta_v4_3` para generar la carta de cotización
 4. Ejecutar `GenerarXLSXPedido_v4_3` para generar el pedido técnico
 
+## 📷 Captura de Pantalla
+
+![Excel Template Base](base xlsx.PNG)
+
 ## 📝 Estructura de Datos
 
 ### Hoja PEDIDOS
