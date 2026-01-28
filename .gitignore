@@ -1,0 +1,10 @@
+# Excel files
+*.xlsm
+*.xlsx
+*.xls
+
+# VS Code
+.vs/
+
+# Windows
+Thumbs.db

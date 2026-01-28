@@ -1,0 +1,343 @@
+===================================================================================
+ESTRUCTURA DE LA HOJA CONFIG - FORMULARIO PERMANENTE v2.5
+===================================================================================
+
+DESCRIPCIÓN GENERAL:
+La hoja CONFIG actúa como un formulario de control donde se definen TODOS los datos
+de empresa, vendedor y condiciones comerciales. Una sola vez. Después, cada
+cotización simplemente toma estos datos automáticamente.
+
+NOVEDAD v2.5: Simplificación de campos de pago a un solo campo "Medios de Pago"
+que puede incluir cuentas bancarias, Yape, Plin, y cualquier otro medio de pago.
+
+===================================================================================
+SECCIÓN 1: DATOS DE EMPRESA (Estático - Una sola vez)
+===================================================================================
+
+Celda B6:  Nombre de la Empresa
+           Ejemplo: "CIP COMERCIAL"
+           IMPORTANTE: Esta es la celda que se usa para mostrar el nombre en el encabezado
+
+Celda B7:  Dirección
+           Ejemplo: "Calle Principal 123, Lima, Perú"
+
+Celda B8:  Teléfono Empresa
+           Ejemplo: "+51 1 2345678"
+
+Celda B9:  Email Empresa
+           Ejemplo: "contacto@cipcomercial.com"
+
+Celda B10: Website
+           Ejemplo: "www.cipcomercial.com"
+
+Celda A1:B3: LOGO
+            Insertar imagen aquí (preferentemente en rango A1:B3)
+            El logo se buscará automáticamente con el nombre "logo_empresa"
+            IMPORTANTE: El nombre de la forma debe ser exactamente "logo_empresa"
+            
+            NOTA: En el documento generado, el logo mantendrá su proporción original
+            y se ajustará automáticamente a la altura de las 3 filas (A1:A3).
+            La altura se calcula sumando las alturas individuales de las filas A1, A2, A3.
+
+===================================================================================
+SECCIÓN 2: DATOS DEL VENDEDOR (Estático - Se actualiza cuando cambia vendedor)
+===================================================================================
+
+Celda B15: Nombre del Vendedor
+           Ejemplo: "Juan Pérez García"
+
+Celda B16: Teléfono del Vendedor
+           Ejemplo: "999 123 456"
+
+Celda B17: Email del Vendedor
+           Ejemplo: "juan.perez@cipcomercial.com"
+
+===================================================================================
+SECCIÓN 3: CONDICIONES COMERCIALES ESTÁNDAR (Estático - Se define una sola vez)
+===================================================================================
+
+Celda B20: Validez de Cotización
+           Ejemplo: "30 días a partir de la fecha de este documento"
+           
+Celda B21: Tipo de Pago
+           Ejemplo: "Contado / Crédito 30 días"
+
+Celda B22: Plazo de Entrega
+           Ejemplo: "3-5 días hábiles a partir de la confirmación del pedido"
+
+Celda B23: Condición Especial 1 (Opcional)
+           Ejemplo: "Garantía 12 meses en todos los productos"
+           
+Celda B24: Condición Especial 2 (Opcional)
+           Ejemplo: "Transporte incluido a domicilio dentro de Lima"
+
+===================================================================================
+SECCIÓN 4: PIE DE PÁGINA (Para PDF)
+===================================================================================
+
+Celda B25: Pie de Página / Footer
+           Ejemplo: "CIP COMERCIAL S.A.C. - RUC: 20123456789 - Lima, Perú"
+           Aparecerá al pie de cada página del PDF
+           NOTA: El RUC se extrae automáticamente de esta celda
+
+===================================================================================
+SECCIÓN 5: INFORMACIÓN ADICIONAL
+===================================================================================
+
+Celda B26: Moneda
+            Ejemplo: "S/. " (soles peruanos) o "$ " (dólares estadounidenses)
+            Determina el símbolo de moneda que aparecerá en los precios del PDF
+            Opciones recomendadas:
+            - S/.  (Soles Peruanos)
+            - $    (Dólares Estadounidenses)
+            - €    (Euros)
+            - £    (Libras Esterlinas)
+            
+            IMPORTANTE: Dejar vacío para usar el valor predeterminado (S/. )
+
+Celda B28: Medios de Pago
+            Ejemplo: "BCP Soles 191-12345678-0-00 | CCI: 002-191-001234567890-00 | Yape: 999 123 456"
+            Se mostrará en el cuerpo de la carta, después de la tabla de productos
+            Permite incluir todos los medios de pago aceptados (cuentas bancarias, Yape, Plin, etc.)
+            
+            EJEMPLO COMPLETO:
+            ──────────────────────────────────────────────────────────────────────
+            BCP Soles 191-12345678-0-00 | CCI: 002-191-001234567890-00
+            BCP Dólares 191-87654321-0-00 | CCI: 002-191-008765432109-00
+            Yape: 999 123 456
+            Plin: 999 123 456
+            ──────────────────────────────────────────────────────────────────────
+            
+            NOTAS:
+            - Este campo es flexible y puede incluir cualquier información de pago
+            - Puede contener múltiples líneas separadas por saltos de línea
+            - Acepta cuentas bancarias, billeteras digitales, transferencias, etc.
+            - La información se mostrará en el cuerpo de la carta después del mensaje personalizable
+
+Celda B29: Mensaje Personalizable del Cuerpo
+            Ejemplo: "Gracias por su preferencia. Esperamos poder servirle pronto."
+            Se mostrará en el cuerpo de la carta, después de la tabla de productos
+            Permite agregar un mensaje personalizado para cada cliente
+            
+            NOTA: Este mensaje debe ser breve y conciso (1-2 líneas máximo)
+            
+            EJEMPLO BREVE:
+            ──────────────────────────────────────────────────────────────────────
+            Gracias por su preferencia. Esperamos poder servirle pronto.
+            ──────────────────────────────────────────────────────────────────────
+            
+            NOTAS SOBRE SALTOS DE PÁGINA:
+            - No es necesario agregar saltos de página manuales
+            - La macro maneja automáticamente la paginación del documento
+            - El texto se ajusta al espacio disponible en cada página
+            - Si el contenido excede una página, Excel genera nuevas páginas automáticamente
+            - El footer (RUC y web) se repite en todas las páginas automáticamente
+
+===================================================================================
+FLUJO DE FUNCIONAMIENTO:
+===================================================================================
+
+1. CONFIGURACIÓN INICIAL (Se hace UNA sola vez):
+   - Llena CONFIG con todos los datos de empresa, vendedor, condiciones
+   - Inserta el logo en A1:B3 (nombrado "logo_empresa")
+   - IMPORTANTE: El nombre de la forma del logo debe ser "logo_empresa"
+   - Guarda el archivo
+
+2. CADA COTIZACIÓN:
+   - Va a hoja PEDIDOS
+   - Pega datos: D2 = Cliente, D3 = Número Pedido
+   - Pega productos en filas desde A4
+   - Presiona botón PROCESAR
+   - Elige PDF o XLSX
+   - El sistema toma TODO de CONFIG automáticamente
+
+3. CAMBIOS FUTUROS:
+   - Si cambia vendedor: edita B15, B16, B17
+   - Si cambia condición de pago: edita B21
+   - Todos los próximos PDFs/XLSX usarán esos datos
+
+===================================================================================
+VALIDACIONES:
+===================================================================================
+
+El sistema verifica que CONFIG tenga como MÍNIMO estos datos antes de procesar:
+✓ B6  - Nombre Empresa (obligatorio)
+✓ B15 - Nombre Vendedor (obligatorio)
+✓ B16 - Teléfono Vendedor (obligatorio)
+✓ B20 - Validez Cotización (obligatorio)
+✓ B21 - Tipo de Pago (obligatorio)
+✓ B22 - Plazo Entrega (obligatorio)
+✓ logo_empresa - Forma del logo (obligatorio)
+
+Si falta alguno, muestra mensaje de error y pide completar.
+
+===================================================================================
+COLORES Y ESTILOS APLICADOS (Paleta Corporativa Tradicional):
+===================================================================================
+
+PALETA DE COLORES PARA DOCUMENTOS FORMALES Y CONTRATOS:
+───────────────────────────────────────────────────────────────────────────────────
+
+Elemento              │ Color          │ Hex      │ RGB                    │
+──────────────────────┼────────────────┼──────────┼────────────────────────
+Encabezados de tabla  │ Navy Blue      │ #001F3F  │ 0, 31, 63              │
+Filas alternas        │ Ivory          │ #F8F8F2  │ 248, 248, 242          │
+Totales               │ Charcoal       │ #333333  │ 51, 51, 51             │
+Texto normal          │ Negro          │ #000000  │ 0, 0, 0                │
+Texto destacado       │ Navy Blue      │ #001F3F  │ 0, 31, 63              │
+Líneas separadoras    │ Gris medio     │ #666666  │ 102, 102, 102          │
+
+VISTA VISUAL:
+───────────────────────────────────────────────────────────────────────────────────
+Encabezados de tabla:  [████████] Navy Blue (#001F3F) con texto blanco
+Filas alternas:       [░░░░░░░░] Ivory (#F8F8F2) para facilitar lectura
+Totales:              [▒▒▒▒▒▒▒▒] Charcoal (#333333) con texto blanco
+Texto normal:         [        ] Negro (#000000)
+Texto destacado:      [        ] Navy Blue (#001F3F) en negrita
+Líneas separadoras:   [────────] Gris medio (#666666)
+
+POR QUÉ ESTA PALETA ES IDEAL PARA CONTRATOS:
+───────────────────────────────────────────────────────────────────────────────────
+✅ Profesionalismo: Colores sobrios transmiten seriedad y confianza
+✅ Legibilidad: Alto contraste entre texto y fondo facilita la lectura
+✅ Tradición: Navy y charcoal son colores clásicos en documentos corporativos
+✅ Impresión: Se imprimen correctamente en blanco y negro
+✅ Accesibilidad: Cumple con estándares de contraste WCAG
+
+IMPLEMENTACIÓN EN VBA:
+───────────────────────────────────────────────────────────────────────────────────
+Private Const COLOR_HEADER_BG As Long = 4144959      ' Navy Blue (#001F3F)
+Private Const COLOR_HEADER_TEXT As Long = 16777215   ' Blanco (#FFFFFF)
+Private Const COLOR_ROW_ALT As Long = 16316670       ' Ivory (#F8F8F2)
+Private Const COLOR_TOTAL_BG As Long = 3355443       ' Charcoal (#333333)
+Private Const COLOR_TOTAL_TEXT As Long = 16777215    ' Blanco (#FFFFFF)
+
+ESTILOS ADICIONALES:
+───────────────────────────────────────────────────────────────────────────────────
+ENCABEZADOS (Tablas):
+- Color: Navy Blue (#001F3F)
+- Texto: Blanco bold
+- Tamaño: 9-10 pt
+
+TOTALES:
+- Color: Charcoal (#333333)
+- Texto: Blanco bold
+- Tamaño: 13 pt (muy destacado)
+
+DATOS CALCULADOS:
+- Fondo: Ivory (#F8F8F2)
+- Resalta qué columnas se calculan automáticamente
+
+BORDES:
+- Líneas grises medias (#666666)
+- Finas y profesionales
+- Distinguen secciones
+
+TIPOGRAFÍA:
+- Fuente: Calibri 9-11 pt
+- Consistente en todo el documento
+- Fácil de leer en PDF
+
+===================================================================================
+ESTRUCTURA DE LA HOJA PEDIDO GENERADA (XLSX):
+===================================================================================
+
+La hoja PEDIDO generada tiene la siguiente estructura de filas:
+
+FILAS 1-3: ÁREA DE ENCABEZADO
+─────────────────────────────
+A1:B3    : Logotipo de la empresa (desde CONFIG)
+C1:E1    : Nombre de la empresa (fusionado, desde CONFIG!B6)
+C2       : Etiqueta "CLIENTE"
+D2:E2    : Nombre del cliente (fusionado, desde PEDIDOS!D2)
+C3       : Etiqueta "PEDIDO"
+D3:E3    : Número de pedido (fusionado, desde PEDIDOS!D3)
+K3       : Etiqueta "Importe Total:"
+L3       : Total del pedido con IVA
+
+FILA 4: FILA VACÍA
+─────────────────
+Esta fila está vacía y sirve como separación visual entre el área de encabezado
+y la tabla de datos. La macro limpia explícitamente el contenido de esta fila
+(ClearContents) y establece una altura estándar de 15 puntos para mantener
+la separación visual.
+
+FILA 5: ENCABEZADOS DE TABLA
+───────────────────────────
+A: N°
+B: CANT.
+C: U/M
+D: ARTICULO
+E: DESCRIPCIÓN
+F: STOCK
+G: VALOR VENTA UNITARIO
+H: DESC 1
+I: DESC 2
+J: VALOR VENTA
+K: PRECIO UNITARIO
+L: PRECIO VENTA
+
+FILAS 6+: DATOS DE ARTÍCULOS
+───────────────────────────
+Cada fila contiene los datos de un artículo del pedido, con:
+- N°: Número de línea (generado automáticamente)
+- CANT.: Cantidad solicitada
+- U/M: Unidad de medida
+- ARTICULO: Código del artículo
+- DESCRIPCIÓN: Descripción del producto
+- STOCK: Estado del stock (con lógica de colores)
+- VALOR VENTA UNITARIO: Precio unitario sin IVA
+- DESC 1: Primer descuento
+- DESC 2: Segundo descuento
+- VALOR VENTA: Valor de venta calculado
+- PRECIO UNITARIO: Precio unitario con IVA
+- PRECIO VENTA: Precio de venta total con IVA
+
+===================================================================================
+DIFERENCIAS PDF vs XLSX:
+===================================================================================
+
+PDF (Formal):
+✓ Incluye logo, empresa, condiciones completas
+✓ Página única formateada para impresión
+✓ Incluye línea de firma del vendedor
+✓ No editable (fotografía de la cotización)
+✓ Condiciones en texto expandido
+✓ Presentación: profesional / legal
+
+XLSX (Editable):
+✓ Cliente puede modificar cantidades
+✓ Cliente puede agregar/eliminar items
+✓ Fórmulas se recalculan automáticamente
+✓ Totales actualizados al instante
+✓ Interfaz limpia sin textos de carta
+✓ Formato: tabla interactiva
+✓ Estructura: fila 4 vacía, encabezados fila 5, datos fila 6+, total fila 3
+
+===================================================================================
+EJEMPLO DE ESTRUCTURA COMPLETA EN CONFIG:
+===================================================================================
+
+[LOGOTIPO EN A1:B3]  |  B6: CIP COMERCIAL (Nombre de empresa)
+                    |  B7: Calle Principal 123
+                    |  B8: +51 1 2345678
+                    |  B9: contacto@cipcomercial.com
+                    |  B10: www.cipcomercial.com
+                    |
+                    |  B15: Juan Pérez García
+                    |  B16: 999 123 456
+                    |  B17: juan@cipcomercial.com
+                    |
+                    |  B20: 30 días a partir de la fecha
+                    |  B21: Contado / Crédito 30 días
+                    |  B22: 3-5 días hábiles
+                    |  B23: Garantía 12 meses
+                    |  B24: Envío incluido
+                    |  B25: CIP COMERCIAL S.A.C. - RUC: 20123456789
+                    |
+                    |  [SECCIÓN 5: INFORMACIÓN ADICIONAL]
+                    |  B28: BCP Soles 191-12345678-0-00 | CCI: 002-191-001234567890-00
+                    |       Yape: 999 123 456
+                    |  B29: Gracias por su preferencia. Esperamos poder servirle pronto.
+
+===================================================================================

@@ -1,0 +1,274 @@
+================================================================================
+INSTALACIÓN PASO A PASO - SISTEMA DE PEDIDOS v4.3
+================================================================================
+
+Este documento explica cómo instalar y configurar el sistema de generación
+de documentos de pedidos en su versión 4.3.
+
+================================================================================
+REQUISITOS DEL SISTEMA
+================================================================================
+
+□ Microsoft Excel 2010 o superior
+□ Sistema operativo Windows 7/8/10/11
+□ Permisos para ejecutar macros en Excel
+
+================================================================================
+ARCHIVOS NECESARIOS
+================================================================================
+
+□ Pedidos a Excel V4.x.xlsm (archivo principal)
+□ setup_config_sheet_ES.vba (crear hoja CONFIG)
+□ GenerarXLSXPedido_v4.3.bas (macro de pedido técnico)
+□ GenerarXLSXCarta_v4.3.bas (macro de carta de cotización)
+
+================================================================================
+PASO 1: PREPARAR EXCEL
+================================================================================
+
+1.1 Abrir Excel
+    → Inicie Microsoft Excel
+
+1.2 Configurar seguridad de macros
+    → Archivo → Opciones → Centro de confianza
+    → Configuración del Centro de confianza
+    → Configuración de macros
+    → Seleccione: "Habilitar todas las macros"
+    → Aceptar
+
+NOTA: Si no puede habilitar macros, el sistema no funcionará.
+
+================================================================================
+PASO 2: CREAR ARCHIVO PRINCIPAL
+================================================================================
+
+2.1 Crear nuevo libro
+    → Archivo → Nuevo → Libro en blanco
+
+2.2 Guardar con formato correcto
+    → Archivo → Guardar como
+    → Nombre: "Pedidos a Excel V4.3.xlsm"
+    → Tipo: "Libro de Excel habilitado para macros (*.xlsm)"
+    → Guardar
+
+IMPORTANTE: Debe usar la extensión .xlsm, no .xlsx
+
+================================================================================
+PASO 3: CREAR HOJA CONFIG
+================================================================================
+
+3.1 Abrir el Editor de VBA
+    → Presione ALT + F11
+
+3.2 Insertir módulo
+    → Insertar → Módulo
+
+3.3 Copiar código de configuración
+    → Abra el archivo: setup_config_sheet_ES.vba
+    → Seleccione todo el código (Ctrl + A)
+    → Copie (Ctrl + C)
+    → Pegue en el módulo de VBA (Ctrl + V)
+
+3.4 Ejecutar macro de configuración
+    → Cierre el Editor VBA (Alt + Q)
+    → Presione ALT + F8
+    → Seleccione: CrearHojaDeConfiguracion
+    → Ejecutar
+
+3.5 Verificar hoja CONFIG
+    → Debe ver una nueva hoja llamada "CONFIG"
+    → Completar todos los campos con los datos de su empresa
+
+================================================================================
+PASO 4: INSTALAR MACROS PRINCIPALES
+================================================================================
+
+4.1 Abrir Editor de VBA nuevamente
+    → Presione ALT + F11
+
+4.2 Insertir módulo para Pedido
+    → Insertar → Módulo
+    → Nombre: ModuloPedido
+
+4.3 Copiar código de GenerarXLSXPedido
+    → Abra: GenerarXLSXPedido_v4.3.bas
+    → Seleccione todo (Ctrl + A)
+    → Copie (Ctrl + C)
+    → Pegue en el módulo ModuloPedido
+
+4.4 Insertir módulo para Carta
+    → Insertar → Módulo
+    → Nombre: ModuloCarta
+
+4.5 Copiar código de GenerarXLSXCarta
+    → Abra: GenerarXLSXCarta_v4.3.bas
+    → Seleccione todo (Ctrl + A)
+    → Copie (Ctrl + C)
+    → Pegue en el módulo ModuloCarta
+
+4.6 Cerrar Editor VBA
+    → Presione Alt + Q
+
+================================================================================
+PASO 5: CONFIGURAR HOJA PEDIDOS
+================================================================================
+
+5.1 Crear hoja PEDIDOS
+    → Clic derecho en pestaña de hoja
+    → Insertar → Hoja de cálculo
+    → Nombre: PEDIDOS
+
+5.2 Configurar encabezados
+    Celda D2: "CLIENTE: [Nombre del cliente]"
+    Celda D3: "PEDIDO: [Número de pedido]"
+
+5.3 Preparar estructura de datos
+    La fila 5 en adelante recibirá los datos del sistema RPE
+    Columna C: CÓDIGO
+    Columna D: DESCRIPCIÓN
+    Columna E: CANTIDAD
+    Columna F: STOCK
+    Columna G: U/M
+    Columna H: PRECIO
+    Columna I: DESC 1
+    Columna J: DESC 2
+
+================================================================================
+PASO 6: INSERTIR LOGOTIPO
+================================================================================
+
+6.1 Ir a hoja CONFIG
+    → Haga clic en la pestaña CONFIG
+
+6.2 Insertir imagen
+    → Insertar → Imágenes → Este dispositivo
+    → Seleccione el logotipo de su empresa
+    → Insertar
+
+6.3 Nombrar el logotipo
+    → Seleccione la imagen
+    → En el cuadro de nombres (arriba izquierda, junto a la fórmula)
+    → Escriba: logo_empresa
+    → Presione Enter
+
+6.4 Ajustar tamaño
+    → Redimensione el logotipo a aproximadamente 2-3 cm de alto
+    → Posicione en la parte superior de la hoja
+
+================================================================================
+PASO 7: PROBAR EL SISTEMA
+================================================================================
+
+7.1 Agregar datos de prueba
+    → Vaya a la hoja PEDIDOS
+    → En la fila 5, agregue un producto de prueba:
+      C5: "00123"
+      D5: "Producto de prueba"
+      E5: "10"
+      F5: "50"
+      G5: "UND"
+      H5: "100.00"
+      I5: "0"
+      J5: "0"
+
+7.2 Probar macro de Pedido
+    → Presione ALT + F8
+    → Seleccione: GenerarXLSXPedido_v4_3
+    → Ejecutar
+    → Verifique que se crea el archivo en el escritorio
+
+7.3 Probar macro de Carta
+    → Presione ALT + F8
+    → Seleccione: GenerarXLSXCarta_v4_3
+    → Ejecutar
+    → Verifique que se crea el archivo en el escritorio
+
+================================================================================
+PASO 8: CONFIGURACIÓN FINAL
+================================================================================
+
+8.1 Completar hoja CONFIG
+    Asegúrese de llenar TODOS los campos:
+    □ Nombre de empresa (B6)
+    □ Dirección (B7)
+    □ Sitio Web (B10)
+    □ Nombre del vendedor (B15)
+    □ Teléfono (B16)
+    □ Email (B17)
+    □ Validez de cotización (B20)
+    □ Forma de pago (B21)
+    □ Plazo de entrega (B22)
+    □ Garantía (B23)
+    □ RUC (B25)
+    □ Símbolo de moneda (B26)
+    □ Medios de pago (B28)
+
+8.2 Guardar archivo
+    → Ctrl + S
+
+================================================================================
+USO DEL SISTEMA (RESUMEN)
+================================================================================
+
+1. Abrir archivo Pedidos a Excel V4.3.xlsm
+2. Pegar datos del sistema RPE en hoja PEDIDOS (desde fila 5)
+3. Actualizar cliente y número de pedido (celdas D2, D3)
+4. Ejecutar macro deseada:
+   - GenerarXLSXPedido_v4_3 → Para formato técnico
+   - GenerarXLSXCarta_v4_3 → Para carta de cotización
+5. Abrir archivo generado en el escritorio
+6. Para PDF: Abrir XLSX → Archivo → Guardar como → PDF
+
+================================================================================
+SOLUCIÓN DE PROBLEMAS COMUNES
+================================================================================
+
+PROBLEMA: "No se pueden ejecutar macros"
+SOLUCIÓN: Verificar configuración de seguridad (Paso 1.2)
+
+PROBLEMA: "La hoja CONFIG no existe"
+SOLUCIÓN: Ejecutar macro CrearHojaDeConfiguracion (Paso 3)
+
+PROBLEMA: "No se encontraron datos"
+SOLUCIÓN: Verificar que los datos estén desde fila 5, columna C
+
+PROBLEMA: "Faltan datos del Cliente"
+SOLUCIÓN: Completar celdas D2 y D3 en hoja PEDIDOS
+
+PROBLEMA: "El logotipo no aparece"
+SOLUCIÓN: Verificar que el nombre sea exactamente "logo_empresa"
+
+================================================================================
+ARCHIVOS GENERADOS
+================================================================================
+
+La macro GenerarXLSXPedido crea:
+→ [Cliente]-[Pedido].xlsx (formato técnico con tabla de 12 columnas)
+
+La macro GenerarXLSXCarta crea:
+→ Cotizacion_[Pedido]_[Cliente].xlsx (formato carta profesional)
+
+Ambos archivos se guardan en el ESCRITORIO.
+
+================================================================================
+VERSIÓN 4.3 - NOVEDADES
+================================================================================
+
+✓ Unificación de versiones (ambos macros son v4.3)
+✓ Textos de carta mejorados con saltos de línea
+✓ Código más limpio y organizado
+✓ Mejor manejo de errores
+✓ Sin generación automática de PDF (más estable)
+
+================================================================================
+CONTACTO Y SOPORTE
+================================================================================
+
+Para dudas o problemas:
+1. Revisar GUIA_USO_MACRO_MEJORADA_v4.3.md
+2. Revisar MEJORAS_IMPLEMENTADAS_v4.3.md
+3. Verificar que todos los pasos de instalación se completaron
+
+================================================================================
+© 2026 - Sistema de Pedidos v4.3
+================================================================================
